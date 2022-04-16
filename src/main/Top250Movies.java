@@ -16,8 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Top250Movies {
 
-	public static void main(String[] args) throws IOException, InterruptedException, ExecutionException{
-
+	public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
 		HttpClient client = HttpClient.newHttpClient();
 
 		HttpRequest request = HttpRequest.newBuilder()
@@ -31,16 +30,24 @@ public class Top250Movies {
 		String top250movies = response.body();
 		
 		List<String> titles = extractAttribute(top250movies, "title");
-		titles.forEach(System.out::println);
+		//titles.forEach(System.out::println);
 		
 		List<String> years = extractAttribute(top250movies, "year");
-		years.forEach(System.out::println);
+		//years.forEach(System.out::println);
 		
 		List<String> images = extractAttribute(top250movies, "image");
-		images.forEach(System.out::println);
+		//images.forEach(System.out::println);
 		
 		List<String> ratings = extractAttribute(top250movies, "imDbRating");
-		ratings.forEach(System.out::println);
+		//ratings.forEach(System.out::println);
+		
+		List<Movie> movies = new ArrayList<>();
+		
+		for (int i=0; i < titles.size(); i++) {
+			movies.add(new Movie(titles.get(i), years.get(i), images.get(i), ratings.get(i)));
+		}
+		
+		movies.forEach(System.out::println);
 
 		/* Using a JSON Library
 		 
