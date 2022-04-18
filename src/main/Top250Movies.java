@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-//import org.json.*;
-
-
 public class Top250Movies {
 
 	public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
@@ -30,37 +27,19 @@ public class Top250Movies {
 		String top250movies = response.body();
 		
 		List<String> titles = extractAttribute(top250movies, "title");
-		//titles.forEach(System.out::println);
-		
 		List<String> years = extractAttribute(top250movies, "year");
-		//years.forEach(System.out::println);
-		
 		List<String> images = extractAttribute(top250movies, "image");
-		//images.forEach(System.out::println);
-		
 		List<String> ratings = extractAttribute(top250movies, "imDbRating");
-		//ratings.forEach(System.out::println);
-		
 		List<Movie> movies = new ArrayList<>();
 		
 		for (int i=0; i < titles.size(); i++) {
 			movies.add(new Movie(titles.get(i), years.get(i), images.get(i), ratings.get(i)));
 		}
 		
-		movies.forEach(System.out::println);
-
-		/* Using a JSON Library
-		 
-		JSONObject top250 = new JSONObject(response.body());
-
-		JSONArray items = (JSONArray) top250.get("items");
-
-		for (int i = 0; i < items.length(); i++) {
-			JSONObject item = (JSONObject) items.get(i);
-			System.out.println(i+1 + ": " + item.get("fullTitle"));
-		}
 		
-		*/
+		HTMLGenerator.generate(movies);
+
+
 		
 	}
 	
