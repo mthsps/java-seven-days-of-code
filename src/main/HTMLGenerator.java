@@ -32,17 +32,19 @@ public class HTMLGenerator {
 			</html>
 			""";
 
-	public static void generate(List<Movie> movies) {
+	public static void generate(List<? extends Content> movies) {
 
 		try (PrintWriter writer = new PrintWriter("template.html")) {
 			writer.println(String.format(head));
-
-			for (Movie movie : movies) {
+			
+			for (Content movie : movies) {
 				writer.println(String.format(divTemplate, movie.title(), movie.rating(), movie.title(),
 						movie.urlImage(), movie.year()));
 			}
+			
 			writer.println(String.format(closingTags));
 			writer.close();
+			
 			System.out.println("HTML created");
 
 		} catch (FileNotFoundException e) {
