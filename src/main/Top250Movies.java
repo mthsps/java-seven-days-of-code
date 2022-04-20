@@ -1,16 +1,18 @@
 package main;
 
-import static env.EnvVariables.*; // To access API_KEY
+import static env.EnvVariables.*; // To access Api Keys 
+
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Top250Movies {
 
-	public static void main(String[] args) throws InterruptedException, ExecutionException {
+	public static void main(String[] args) throws InterruptedException, ExecutionException, NoSuchAlgorithmException {
 		
-		String top250movies = new ImbdApiClient(API_KEY).getResponse();
+		String top250movies = new ImbdApiClient(imdbApiKey).getResponse();
 		
-		List<Movie> movies = new ImdbAttributeExtractor(top250movies).getListOfMovies();
+		List<Movie> movies = new ImdbJsonParser(top250movies).getList();
 		
 		HTMLGenerator.generate(movies);
 		

@@ -3,14 +3,15 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImdbAttributeExtractor {
+public class ImdbJsonParser implements JsonParser {
 	
 	private String json;
 
-	public ImdbAttributeExtractor(String json) {
+	public ImdbJsonParser(String json) {
 		this.json = json;
 	}
- 	
+	
+	
 	List<String> extractAttribute(String attributeToExtract) {
 		List<String> attributes = new ArrayList<>();
 		
@@ -27,7 +28,9 @@ public class ImdbAttributeExtractor {
 		return attributes;
 	}
 	
-	public List<Movie> getListOfMovies() {
+	
+	@Override
+	public List<Movie> getList() {
 	
 		List<String> titles = extractAttribute("title");
 		List<String> years = extractAttribute("year");
@@ -42,4 +45,5 @@ public class ImdbAttributeExtractor {
 		return movies;
 	
 	}
+
 }

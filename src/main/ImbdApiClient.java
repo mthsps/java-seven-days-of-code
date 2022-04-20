@@ -3,10 +3,11 @@ package main;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.concurrent.ExecutionException;
 
-public class ImbdApiClient {
+public class ImbdApiClient implements ApiClient {
 	
 	private String apiKey;
 
@@ -14,7 +15,7 @@ public class ImbdApiClient {
 		this.apiKey = apiKey;
 	}
 	
-	public String getResponse() throws InterruptedException, ExecutionException {
+	public String getResponse() {
 
 		HttpClient client = HttpClient.newHttpClient();
 	
@@ -24,7 +25,13 @@ public class ImbdApiClient {
 	
 		var responseFuture = client.sendAsync(request, BodyHandlers.ofString());
 	
-		var response = responseFuture.get();
+		HttpResponse<String> response = null;
+		
+		try {
+			response = responseFuture.get();
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
 		
 		return response.body();
 	}
