@@ -22,6 +22,6 @@ Seven-day challenge to build an application to fetch the top 250 movies from IMD
  
 </br>
 
-## Source
+## Reference
 
 [Java | Alura Seven Days of Code](https://7daysofcode.io/matricula/java)
